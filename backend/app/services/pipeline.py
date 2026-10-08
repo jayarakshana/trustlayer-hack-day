@@ -1,6 +1,8 @@
 import json
 import os
 
+from app.ai.generator import run_engine
+
 
 def run_analysis(question: str):
     use_mock = os.getenv("USE_MOCK", "true").lower() == "true"
@@ -18,4 +20,4 @@ def run_analysis(question: str):
         data["question"] = question
         return data
 
-    raise NotImplementedError("Live pipeline is not connected yet.")
+    return run_engine(question)
