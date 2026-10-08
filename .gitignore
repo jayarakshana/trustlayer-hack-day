@@ -9,3 +9,5 @@ dist/
 .idea/
 .DS_Store
 Thumbs.db
+.pytest_cache/
+.trustlayer_cache.sqlite3
