@@ -2,6 +2,7 @@ import json
 import os
 
 from app.ai.generator import run_engine
+from app.reliability.report import analyze
 
 
 def run_analysis(question: str):
@@ -20,4 +21,16 @@ def run_analysis(question: str):
         data["question"] = question
         return data
 
-    return run_engine(question)
+    engine_result = run_engine(question)
+    reliability_result = analyze(question, engine_result["answers"])
+
+    return {
+        "question": question,
+        "variations": engine_result["variations"],
+        "answers": engine_result["answers"],
+        "claims": reliability_result["claims"],
+        "reliability": reliability_result["reliability"],
+        "contradictions": reliability_result["contradictions"],
+        "assumptions": reliability_result["assumptions"],
+        "verdict": reliability_result["verdict"],
+    }
